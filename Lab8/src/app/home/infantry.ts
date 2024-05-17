@@ -19,4 +19,4 @@ export class Infantry implements IUnit {
         this.health += health;
         if (this.health > this.maxhealth) this.health = this.maxhealth;
     }
-}
+} 

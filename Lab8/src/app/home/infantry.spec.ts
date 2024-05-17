@@ -16,7 +16,7 @@ describe('Infantry Testing', () => {
         infantry.harm(5);
         let health = 5;
         expect(infantry.health.toFixed(2)).toBe(health.toFixed());
-    });
+    }); 
 
     it("Нанесення шкоди 15 одиниць", () => {
         infantry.harm(5);

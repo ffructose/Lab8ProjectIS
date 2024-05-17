@@ -4,3 +4,4 @@ export interface IUnit
   damage:number;
   maxhealth:number;
 }
+ 
