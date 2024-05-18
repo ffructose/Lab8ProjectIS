@@ -9,3 +9,5 @@ export class Point implements IPoint {
     }
     
 }
+
+ 

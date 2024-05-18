@@ -1,3 +1,4 @@
+import { IPoint } from './ipoint';
 import { Point } from './point';
 
 describe('----------- Point Testing -----------', () => {
@@ -11,3 +12,4 @@ describe('----------- Point Testing -----------', () => {
         expect(point).toBeTruthy();
     });
 }); 
+ 

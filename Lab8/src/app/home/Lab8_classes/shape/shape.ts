@@ -1,4 +1,4 @@
-import { IShape } from "./ishape";
+import { IShape } from "./ishape"; 
 import { Point } from "../point/point";
 
 export class Shape implements IShape {
@@ -50,20 +50,40 @@ export class Shape implements IShape {
     }
 
     rotate(angle: number): void {
-        const centerX = (this.botL.x + this.topR.x) / 2;
-        const centerY = (this.botL.y + this.topR.y) / 2;
-        const rad = angle * (Math.PI / 180); // Перетворення кута з градусів в радіани
+        const center = this.getCenter();
 
-        this.botL = this.rotatePoint(this.botL, centerX, centerY, rad);
-        this.topL = this.rotatePoint(this.topL, centerX, centerY, rad);
-        this.topR = this.rotatePoint(this.topR, centerX, centerY, rad);
-        this.botR = this.rotatePoint(this.botR, centerX, centerY, rad);
+        this.botL = this.rotatePoint(this.botL, angle, center);
+        this.topL = this.rotatePoint(this.topL, angle, center);
+        this.topR = this.rotatePoint(this.topR, angle, center);
+        this.botR = this.rotatePoint(this.botR, angle, center);
     }
 
-    private rotatePoint(point: Point, centerX: number, centerY: number, angle: number): Point {
-        const x = centerX + (point.x - centerX) * Math.cos(angle) - (point.y - centerY) * Math.sin(angle);
-        const y = centerY + (point.x - centerX) * Math.sin(angle) + (point.y - centerY) * Math.cos(angle);
-        return { x, y };
+    // Обчислення центра фігури
+    private getCenter(): Point {
+        const centerX = (this.botL.x + this.topL.x + this.topR.x + this.botR.x) / 4;
+        const centerY = (this.botL.y + this.topL.y + this.topR.y + this.botR.y) / 4;
+        return new Point(centerX, centerY);
+    }
+
+    // Обертання точки на заданий кут навколо центра
+    private rotatePoint(p: Point, angle: number, center: Point): Point {
+        const rad = -angle * (Math.PI / 180); // Конвертація кута в радіани
+        const cos = Math.cos(rad);
+        const sin = Math.sin(rad);
+
+        // Переносимо точку так, щоб центр був в (0, 0)
+        const translatedX = p.x - center.x;
+        const translatedY = p.y - center.y;
+
+        // Обертаємо точку
+        const rotatedX = translatedX * cos - translatedY * sin;
+        const rotatedY = translatedX * sin + translatedY * cos;
+
+        // Переносимо точку назад
+        const finalX = rotatedX + center.x;
+        const finalY = rotatedY + center.y;
+
+        return new Point(Math.round(finalX), Math.round(finalY));
     }
 
 }

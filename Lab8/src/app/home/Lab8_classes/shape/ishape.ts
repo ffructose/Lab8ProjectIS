@@ -7,3 +7,4 @@ export interface IShape {
     rotate(angle: number): void;
 
 } 
+
